@@ -3,6 +3,7 @@ package com.ravn.bookshop;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 
@@ -10,8 +11,11 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 public class Book implements Serializable {
-private String title;
-private String author;
-private String publishDate;
-private String isbn;
+
+    private String title;
+    private String author;
+    private String publishDate;
+
+    @Id
+    private String isbn;
 }
