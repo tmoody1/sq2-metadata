@@ -4,15 +4,13 @@ import com.ravn.bookshop.Book;
 import com.ravn.bookshop.storage.BooksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @EnableAutoConfiguration
-public class MetadataController {
+public class BookController {
 
     @Autowired
     private BooksRepository booksRepository;
@@ -25,5 +23,11 @@ public class MetadataController {
     @PostMapping("/books")
     public Book addBook(Book book) {
         return booksRepository.insert(book);
+    }
+
+    @PutMapping("/books/{isbn}")
+    public Book updateBook(@PathVariable String isbn, Book book) {
+        book.setIsbn(isbn);
+        return booksRepository.save(book);
     }
 }
