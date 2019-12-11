@@ -4,6 +4,7 @@ import com.ravn.bookshop.Book;
 import com.ravn.bookshop.storage.BooksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,17 +16,17 @@ public class BookController {
     @Autowired
     private BooksRepository booksRepository;
 
-    @GetMapping("/books")
+    @GetMapping(value = "/books", produces = { MediaType.APPLICATION_JSON_VALUE})
     public List<Book> getBooks() {
         return booksRepository.findAll();
     }
 
-    @PostMapping("/books")
+    @PostMapping(value = "/books", produces = { MediaType.APPLICATION_JSON_VALUE}, consumes = { MediaType.APPLICATION_JSON_VALUE})
     public Book addBook(@RequestBody Book book) {
         return booksRepository.insert(book);
     }
 
-    @PutMapping("/books/{isbn}")
+    @PutMapping(value = "/books/{isbn}", produces = { MediaType.APPLICATION_JSON_VALUE}, consumes = { MediaType.APPLICATION_JSON_VALUE})
     public Book updateBook(@PathVariable String isbn, @RequestBody Book book) {
         book.setIsbn(isbn);
         return booksRepository.save(book);
