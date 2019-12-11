@@ -21,13 +21,18 @@ public class BookController {
     }
 
     @PostMapping("/books")
-    public Book addBook(Book book) {
+    public Book addBook(@RequestBody Book book) {
         return booksRepository.insert(book);
     }
 
     @PutMapping("/books/{isbn}")
-    public Book updateBook(@PathVariable String isbn, Book book) {
+    public Book updateBook(@PathVariable String isbn, @RequestBody Book book) {
         book.setIsbn(isbn);
         return booksRepository.save(book);
+    }
+
+    @DeleteMapping("/books/{isbn}")
+    public void deleteBook(@PathVariable String isbn) {
+        booksRepository.deleteById(isbn);
     }
 }
